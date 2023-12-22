@@ -1,17 +1,15 @@
 import React from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { DomikContext } from '../Context';
-import StyledHero from "../components/StyledHero";
 
 
 export default function InfoDomik() {
-  const { info } = useParams();
+  const { info } = useParams(); //info acts as unique identifier for each of my domiks. if URL looks like this: /domik/single-standard that means details of this specific domik are retrieved
   const { getDomik } = React.useContext(DomikContext);
-
   const domik = getDomik(info);
   
 
-  if (!domik) {
+  if (!domik) {  //for errored url-s
     return (
       <div className="error">
         <h3>Такого домика нет</h3>
@@ -21,6 +19,8 @@ export default function InfoDomik() {
       </div>
     );
   }
+
+
   const {
     name,
     description,
@@ -30,12 +30,12 @@ export default function InfoDomik() {
     images
   } = domik;
 
-  const [main, ...defaultImages] = images;
-  console.log(defaultImages);
+  const [...defaultImages] = images; //...spread operator to create an array images belonging to this specific domik
+  
 
   return (
     <>
-    <StyledHero img={images[0] || this.state.defaultBcg}></StyledHero>
+    
     <section className="infodomik">
       <div className="infodomik-images">
       {defaultImages.map((item, index) => (
