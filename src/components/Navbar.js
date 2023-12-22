@@ -6,10 +6,10 @@ import {FaAlignRight} from 'react-icons/fa'
 export default class Navbar extends Component {
     state = {
       isOpen: false
-    };
+    }; // false bc navbar on larger screen is displayed and then displayed only when clicked
     handleToggle = () => {
       this.setState({ isOpen: !this.state.isOpen });
-    };
+    }; //for smaller screen when whe toggle is clicked
     render() {
       return (
         <nav classname="navbar">
