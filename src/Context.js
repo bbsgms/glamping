@@ -16,14 +16,14 @@ const DomikContext = React.createContext();
     breakfast: false
   };
   
-componentDidMount(){
+componentDidMount(){ //is used to make changes after it was displayed (asynchronious)
   
   let domiki = this.formatData(items)
-  let  homeDomiki = domiki.filter( domik => domik.homed === true );
+  let  homeDomiki = domiki.filter( domik => domik.homed === true ); //with homed value
   let maxPrice = Math.max(...domiki.map(item => item.price));
   let maxSize = Math.max(...domiki.map(item => item.size));
 
-  this.setState({
+  this.setState({ //updating 
     domiki,homeDomiki, sortedDomiki:domiki, loading:false, price: maxPrice,
     maxPrice,
     maxSize
@@ -41,13 +41,13 @@ formatData(items) {
   return tempItems
 }
 
-getDomik = (info) =>{
+getDomik = (info) =>{ //retrieve domik by info
   let tempDomiki = [...this.state.domiki];
   const domik = tempDomiki.find((domik)=>domik.info===info);
   return domik;
 }
 
-handleChange = event=>{
+handleChange = event=>{ //handles according to user filter
   const target = event.target;
   const value = target.type === "checkbox" ? target.checked : target.value;
   const name = target.name;
@@ -71,7 +71,7 @@ handleChange = event=>{
       breakfast
     } = this.state;
 
-    let tempDomiki = [...domiki];
+    let tempDomiki = [...domiki]; //to hold intermediate values after filtering
     price = parseInt(price);
     // filter by type
     if (type !== "все") {
@@ -105,7 +105,7 @@ handleChange = event=>{
 const DomikConsumer = DomikContext.Consumer;
 export{DomikProvider, DomikConsumer, DomikContext};
 
-export function withDomikConsumer(Component){
+export function withDomikConsumer(Component){ //hoc
   return function ConsumerWrapper(props){
     return <DomikConsumer>
       {value => <Component {...props} context={value}/>}
